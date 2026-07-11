@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="intro">
+    <h1>Share your feedback</h1>
+    <p>Post a note to the public board below. Be kind &mdash; everyone can read it.</p>
+</section>
+
+<section class="card form-card">
+    <form method="post" action="{{ url_for('main.index') }}" class="feedback-form" novalidate>
+        <div class="field">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                maxlength="{{ max_name }}"
+                value="{{ form_name|default('', true) }}"
+                placeholder="Ada Lovelace"
+                required>
+        </div>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea
+                id="message"
+                name="message"
+                rows="3"
+                maxlength="{{ max_message }}"
+                placeholder="This deploy went smoothly!"
+                required>{{ form_message|default('', true) }}</textarea>
+        </div>
+        <button type="submit" class="btn">Post feedback</button>
+    </form>
+</section>
+
+<section class="board">
+    <h2>Recent feedback</h2>
+    {% if entries %}
+        <ul class="entry-list">
+            {% for entry in entries %}
+                <li class="entry card">
+                    <div class="entry-head">
+                        <span class="entry-name">{{ entry.name }}</span>
+                        <time class="entry-time" datetime="{{ entry.created_at.isoformat() }}">
+                            {{ entry.created_at.strftime('%Y-%m-%d %H:%M UTC') }}
+                        </time>
+                    </div>
+                    <p class="entry-message">{{ entry.message }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if pagination.pages > 1 %}
+            <nav class="pagination" aria-label="Feedback pages">
+                {% if pagination.has_prev %}
+                    <a class="page-link" href="{{ url_for('main.index', page=pagination.prev_num) }}">&larr; Newer</a>
+                {% else %}
+                    <span class="page-link disabled">&larr; Newer</span>
+                {% endif %}
+                <span class="page-status">Page {{ pagination.page }} of {{ pagination.pages }}</span>
+                {% if pagination.has_next %}
+                    <a class="page-link" href="{{ url_for('main.index', page=pagination.next_num) }}">Older &rarr;</a>
+                {% else %}
+                    <span class="page-link disabled">Older &rarr;</span>
+                {% endif %}
+            </nav>
+        {% endif %}
+    {% else %}
+        <p class="empty">No feedback yet. Be the first to post!</p>
+    {% endif %}
+</section>
+{% endblock %}

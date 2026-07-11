@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Server error &middot; Community Feedback Board{% endblock %}
+{% block content %}
+<section class="card error-card">
+    <h1>500</h1>
+    <p>Something went wrong on our end. Please try again shortly.</p>
+    <a class="btn" href="{{ url_for('main.index') }}">Back to the board</a>
+</section>
+{% endblock %}

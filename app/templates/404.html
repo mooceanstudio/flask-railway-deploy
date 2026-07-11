@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Not found &middot; Community Feedback Board{% endblock %}
+{% block content %}
+<section class="card error-card">
+    <h1>404</h1>
+    <p>That page could not be found.</p>
+    <a class="btn" href="{{ url_for('main.index') }}">Back to the board</a>
+</section>
+{% endblock %}
