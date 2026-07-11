@@ -22,9 +22,9 @@ suite that includes a real headless-browser Selenium end-to-end test.
   <a href="https://railway.app/new"><img src="https://railway.app/button.svg" alt="Deploy on Railway" height="44" /></a>
 </p>
 
-![The Community Feedback Board running — post a message, browse the paginated board, or use the JSON API.](docs/screenshots/board.png)
+![Posting feedback on the running Community Feedback Board — a live capture of the app.](docs/screenshots/demo.gif)
 
-> The screenshot above is the actual app running (gunicorn). On Railway it runs
+> Above: the actual app, captured live from a headless browser. On Railway it runs
 > identically against managed PostgreSQL.
 
 ---
@@ -37,29 +37,13 @@ suite that includes a real headless-browser Selenium end-to-end test.
 - **Health checks** at `/health` (liveness) and `/ready` (DB readiness) for the platform.
 - **Automatic migrations** on deploy, so a fresh Railway PostgreSQL database is schema-ready on first boot.
 
-```
- ┌───────────────────────────────────────────────────────────┐
- │  💬  Community Feedback Board                    JSON API   │
- ├───────────────────────────────────────────────────────────┤
- │  Share your feedback                                       │
- │  Post a note to the public board below.                    │
- │                                                            │
- │  Name     [ Ada Lovelace................................ ] │
- │  Message  [ This deploy went smoothly!.................. ] │
- │           [ Post feedback ]                                │
- │                                                            │
- │  Recent feedback                                           │
- │  ┌───────────────────────────────────────────────────────┐│
- │  │ Ada Lovelace                    2026-07-07 12:04 UTC   ││
- │  │ This deploy went smoothly!                             ││
- │  └───────────────────────────────────────────────────────┘│
- │  ┌───────────────────────────────────────────────────────┐│
- │  │ Grace Hopper                    2026-07-07 11:58 UTC   ││
- │  │ Love the auto-migrations.                             ││
- │  └───────────────────────────────────────────────────────┘│
- │           ← Newer      Page 1 of 3      Older →           │
- └───────────────────────────────────────────────────────────┘
-```
+---
+
+## Screenshots
+
+| Desktop board | Mobile (responsive) | Server-side validation |
+| --- | --- | --- |
+| ![Desktop feedback board](docs/screenshots/board.png) | ![Mobile responsive view](docs/screenshots/mobile.png) | ![Validation error states](docs/screenshots/validation.png) |
 
 ---
 
@@ -76,6 +60,12 @@ suite that includes a real headless-browser Selenium end-to-end test.
 | Platform      | Railway.app (Nixpacks **or** Docker)               |
 | Tests         | pytest + Selenium 4 (headless Chrome E2E)          |
 | CI            | GitHub Actions (SQLite, PostgreSQL, and Selenium)  |
+
+---
+
+## Architecture
+
+![Request and deploy flow — browser to Railway edge to gunicorn and Flask to PostgreSQL, with health checks and automatic migrations on deploy.](docs/architecture.png)
 
 ---
 
