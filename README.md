@@ -18,6 +18,15 @@ run automatically on every deploy, gunicorn, health/readiness probes, a Postgres
 `DATABASE_URL` that is normalized for you, a Dockerfile alternative, and a full test
 suite that includes a real headless-browser Selenium end-to-end test.
 
+<p align="center">
+  <a href="https://railway.app/new"><img src="https://railway.app/button.svg" alt="Deploy on Railway" height="44" /></a>
+</p>
+
+![The Community Feedback Board running — post a message, browse the paginated board, or use the JSON API.](docs/screenshots/board.png)
+
+> The screenshot above is the actual app running (gunicorn). On Railway it runs
+> identically against managed PostgreSQL.
+
 ---
 
 ## What it does
@@ -223,12 +232,17 @@ Nixpacks, set the web service's builder to **Dockerfile** in **Settings → Buil
 (or remove `railway.json`'s `build` block). The image honours `$PORT` and runs the same
 `start.sh` entrypoint, so behaviour is identical.
 
-### One-click button
+### One-click "Deploy on Railway" button
 
-Replace `TEMPLATE_CODE` with your published Railway template code:
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new)
+
+The button above opens Railway's **New Project** flow. For a true one-click clone that
+pre-provisions the web service **and** PostgreSQL together, publish this repo as a
+[Railway template](https://docs.railway.app/guides/create) and point the button at your
+template URL:
 
 ```markdown
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/TEMPLATE_CODE)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/YOUR_TEMPLATE_CODE)
 ```
 
 ---
