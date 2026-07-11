@@ -30,3 +30,4 @@ instance/
 .idea/
 .vscode/
 *.swp
+docs/screenshots/_frames/
