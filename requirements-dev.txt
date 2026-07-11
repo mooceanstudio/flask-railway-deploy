@@ -1,0 +1,7 @@
+# Development and test dependencies.
+# Install with:  pip install -r requirements.txt -r requirements-dev.txt
+-r requirements.txt
+
+pytest==8.3.2
+selenium==4.23.1
+webdriver-manager==4.0.2
