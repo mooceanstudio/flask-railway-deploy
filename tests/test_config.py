@@ -1,5 +1,7 @@
 """Unit tests for configuration helpers."""
 
+import os
+
 import pytest
 
 from app.config import (
@@ -51,7 +53,14 @@ def test_config_registry_contains_expected_names():
 
 def test_testing_config_defaults():
     assert TestingConfig.TESTING is True
-    assert "sqlite" in TestingConfig.SQLALCHEMY_DATABASE_URI
+    uri = TestingConfig.SQLALCHEMY_DATABASE_URI
+    if os.environ.get("TEST_DATABASE_URL"):
+        # Honour an externally provided test database (e.g. PostgreSQL in CI)
+        # so the same suite can run against the production engine.
+        assert uri == normalize_database_url(os.environ["TEST_DATABASE_URL"])
+    else:
+        # Otherwise fall back to a fast, isolated in-memory SQLite database.
+        assert "sqlite" in uri
 
 
 def test_normalize_none_returns_none():
